@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   THEME TOKENS — Light + Dark
+   Exact palettes matched to your references
+   ============================================================ */
+
+:root {
+  /* Light theme (default) */
+  --bg:            #d8d4ec;   /* lavender page bg */
+  --bg-sidebar:    #d8d4ec;   /* sidebar bg */
+  --bg-card:       #ffffff;   /* card bg */
+  --bg-hover:      #ebe8f7;   /* hover states */
+  --border:        #c4c0dd;   /* menu dividers */
+
+  --accent:        #3b82c4;   /* blue */
+  --accent-soft:   #d4e3f2;   /* light blue tiles */
+
+  --text-heading:  #0a2540;   /* navy */
+  --text-body:     #4a5568;   /* gray body */
+  --text-muted:    #7a8b9e;   /* muted */
+  --text-on-accent:#ffffff;   /* white text on active menu */
+
+  --shadow-card:   0 4px 20px rgba(10, 37, 64, 0.06);
+}
+
+.dark {
+  /* Dark theme */
+  --bg:            #0f0f15;
+  --bg-sidebar:    #1a1a24;
+  --bg-card:       #1e1e28;
+  --bg-hover:      #262635;
+  --border:        #2d2d3d;
+
+  --accent:        #f472b6;   /* pink */
+  --accent-soft:   #3a2530;
+
+  --text-heading:  #ffffff;
+  --text-body:     #b8b8c8;
+  --text-muted:    #7a7a90;
+  --text-on-accent:#0f0f15;
+
+  --shadow-card:   0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Poppins', system-ui, sans-serif;
+  background-color: var(--bg);
+  color: var(--text-body);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+
+::selection {
+  background: var(--accent);
+  color: var(--text-on-accent);
+}
+
+/* ============================================================
+   UTILITY CLASSES
+   ============================================================ */
+
+.theme-bg         { background-color: var(--bg); }
+.theme-sidebar    { background-color: var(--bg-sidebar); }
+.theme-card       { background-color: var(--bg-card); }
+.theme-border     { border-color: var(--border); }
+.theme-accent     { color: var(--accent); }
+.theme-heading    { color: var(--text-heading); }
+.theme-body       { color: var(--text-body); }
+.theme-muted      { color: var(--text-muted); }
+.theme-bg-accent  { background-color: var(--accent); }
+.theme-bg-accent-soft { background-color: var(--accent-soft); }
+.theme-on-accent  { color: var(--text-on-accent); }
+.theme-shadow     { box-shadow: var(--shadow-card); }
+
+/* Section title bar (the | before headings) */
+.section-bar {
+  color: var(--accent);              /* ← text now uses accent color */
+}
+
+.section-bar::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 0.9em;
+  background: var(--accent);
+  margin-right: 12px;
+  vertical-align: middle;
+  border-radius: 2px;
+}
+/* Sidebar + content transition smoothness */
+aside, main {
+  transition: margin-left 0.3s ease, width 0.3s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Loading screen prefers-reduced-motion: skip animations */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
