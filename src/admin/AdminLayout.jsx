@@ -29,19 +29,20 @@ export default function AdminLayout({ children }) {
   };
 
   return (
+    // Changed to h-screen and overflow-hidden so the page itself doesn't scroll
     <div
-      className="min-h-screen flex"
+      className="h-screen overflow-hidden flex"
       style={{ backgroundColor: "var(--bg)" }}
     >
-      {/* Sidebar */}
+      {/* Sidebar - Fixed height, scrolls internally if needed */}
       <aside
-        className="w-64 flex-shrink-0 flex flex-col"
+        className="w-64 flex-shrink-0 flex flex-col h-full"
         style={{
           backgroundColor: "var(--bg-sidebar)",
           borderRight: "1px solid var(--border)",
         }}
       >
-        <div className="p-6 border-b" style={{ borderColor: "var(--border)" }}>
+        <div className="p-6 border-b flex-shrink-0" style={{ borderColor: "var(--border)" }}>
           <h2 className="font-bold theme-heading text-sm">
             Admin Panel
           </h2>
@@ -50,6 +51,7 @@ export default function AdminLayout({ children }) {
           </p>
         </div>
 
+        {/* Menu - Scrollable if it gets too long */}
         <nav className="flex-1 py-2 overflow-y-auto">
           {MENU.map((item) => {
             const Icon = item.icon;
@@ -59,16 +61,12 @@ export default function AdminLayout({ children }) {
                 to={item.to}
                 className={({ isActive }) =>
                   `flex items-center gap-3 px-6 py-2.5 text-xs transition-colors ${
-                    isActive
-                      ? "font-semibold"
-                      : ""
+                    isActive ? "font-semibold" : ""
                   }`
                 }
                 style={({ isActive }) => ({
                   backgroundColor: isActive ? "var(--accent)" : "transparent",
-                  color: isActive
-                    ? "var(--text-on-accent)"
-                    : "var(--text-body)",
+                  color: isActive ? "var(--text-on-accent)" : "var(--text-body)",
                 })}
               >
                 <Icon size={14} />
@@ -80,8 +78,7 @@ export default function AdminLayout({ children }) {
 
         <button
           onClick={handleLogout}
-          className="m-4 flex items-center gap-2 px-4 py-2 rounded-lg
-                     text-xs font-medium transition-colors"
+          className="m-4 flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-xs font-medium transition-colors flex-shrink-0"
           style={{
             backgroundColor: "var(--bg)",
             color: "var(--text-body)",
@@ -93,9 +90,11 @@ export default function AdminLayout({ children }) {
         </button>
       </aside>
 
-      {/* Main content */}
+      {/* Main Content - This is the only part that scrolls */}
       <main className="flex-1 overflow-y-auto">
-        <div className="max-w-4xl mx-auto p-8">{children}</div>
+        <div className="max-w-4xl mx-auto p-8">
+          {children}
+        </div>
       </main>
     </div>
   );
