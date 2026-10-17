@@ -6,9 +6,10 @@ export default defineConfig({
   base: "/fahim-portfolio/",
   server: {
     port: 5173,
+    // This tells Vite to serve index.html for all client-side routes
+    historyApiFallback: true,
   },
   build: {
-    // Don't inline any images — always output as separate files
     assetsInlineLimit: 0,
   },
 });
