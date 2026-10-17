@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { personal } from "../data/content";
-
+import { useContent } from "../context/ContentContext";
 export default function StatusDot({ onClick, collapsed = false }) {
+  const { content } = useContent();
+  const personal = content.personal;
   const [index, setIndex] = useState(0);
   const [showTooltip, setShowTooltip] = useState(false);
 

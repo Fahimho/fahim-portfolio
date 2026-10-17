@@ -1,8 +1,10 @@
 import { Award } from "lucide-react";
-import { certifications } from "../data/content";
+import { useContent } from "../context/ContentContext";
 import CardGrid from "./CardGrid";
 
 export default function Certifications() {
+  const { content } = useContent();
+  const certifications = content.certifications || [];
   return (
     <div className="space-y-10">
       <header className="relative theme-card theme-shadow rounded-2xl p-10 overflow-hidden">

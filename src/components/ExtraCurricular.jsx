@@ -1,7 +1,8 @@
 import { Heart, MapPin, Calendar, Users } from "lucide-react";
-import { extracurricular } from "../data/content";
-
+import { useContent } from "../context/ContentContext";
 export default function ExtraCurricular() {
+  const { content } = useContent();
+  const extracurricular = content.extracurricular || [];
   return (
     <div className="space-y-10">
       {/* ============ HEADER ============ */}

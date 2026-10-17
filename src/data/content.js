@@ -57,7 +57,10 @@ export const menuItems = [
 // Everything below will get filled in future chunks
   export const about = {
   greeting: "Hello",
+  greetingIcon: "👋",             
   headline: "I'm",
+  greetingSize: "medium",          
+  headlineSize: "xlarge",          
   paragraphs: [
     "I grew up in Gazipur, Bangladesh, and my curiosity for how things work started early — taking apart toys, fixing gadgets, and wondering what made circuits tick. That curiosity eventually led me to choose IoT and Robotics Engineering as my path.",
 

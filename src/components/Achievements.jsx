@@ -1,8 +1,11 @@
 import { Trophy } from "lucide-react";
-import { achievements } from "../data/content";
+import { useContent } from "../context/ContentContext";
 import CardGrid from "./CardGrid";
 
 export default function Achievements() {
+  const { content } = useContent();
+  const achievements = content.achievements || [];
+
   return (
     <div className="space-y-10">
       <header className="relative theme-card theme-shadow rounded-2xl p-10 overflow-hidden">

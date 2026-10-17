@@ -1,7 +1,9 @@
 import { GraduationCap, MapPin, Calendar } from "lucide-react";
-import { education } from "../data/content";
-
+import { useContent } from "../context/ContentContext";
 export default function Education() {
+  const { content } = useContent();
+    const education = content.education;
+
   return (
     <div className="space-y-10">
       {/* ============ HEADER ============ */}

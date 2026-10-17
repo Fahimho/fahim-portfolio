@@ -1,7 +1,8 @@
 import { Briefcase, MapPin, Calendar } from "lucide-react";
-import { experience } from "../data/content";
-
+import { useContent } from "../context/ContentContext";
 export default function Experience() {
+  const { content } = useContent();
+  const experience = content.experience;
   return (
     <div className="space-y-10">
       {/* ============ HEADER ============ */}

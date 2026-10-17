@@ -7,4 +7,8 @@ export default defineConfig({
   server: {
     port: 5173,
   },
+  build: {
+    // Don't inline any images — always output as separate files
+    assetsInlineLimit: 0,
+  },
 });

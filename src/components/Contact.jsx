@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Mail, MapPin, Phone, Send, Github, Linkedin, Facebook } from "lucide-react";
-import { personal, socials, contact } from "../data/content";
-
+import { useContent } from "../context/ContentContext";
 export default function Contact() {
+  const { content } = useContent();
+  const { personal, socials, contact } = content;
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState("idle"); // idle | sending | sent | error
 

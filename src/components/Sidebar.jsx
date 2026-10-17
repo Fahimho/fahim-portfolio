@@ -5,7 +5,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { useTheme } from "../context/ThemeContext";
-import { personal, menuItems } from "../data/content";
+import { useContent } from "../context/ContentContext";
 import RotatingTitle from "./RotatingTitle";
 import StatusDot from "./StatusDot";
 
@@ -16,6 +16,8 @@ const ICONS = {
 
 export default function Sidebar({ activeSection, setActiveSection }) {
   const { theme, toggleTheme } = useTheme();
+   const { content } = useContent();
+  const { personal, menuItems } = content;
   const [collapsed, setCollapsed] = useState(false);
   const nameParts = personal.name.split(" ");
 
@@ -66,16 +68,23 @@ export default function Sidebar({ activeSection, setActiveSection }) {
         {!collapsed && (
           <>
             <h2 className="text-center text-lg font-bold theme-heading leading-tight">
-              {nameParts.map((word, i) => (
-                <span key={i}>
-                  {word === personal.nameHighlight ? (
-                    <span className="theme-accent">{word}</span>
-                  ) : (
-                    word
-                  )}
-                  {i < nameParts.length - 1 && " "}
-                </span>
-              ))}
+   {nameParts.map((word, i) => {
+  // Support comma-separated highlight words
+  const highlightWords = (personal.nameHighlight || "")
+    .split(",")
+    .map((w) => w.trim());
+  const isHighlighted = highlightWords.includes(word);
+  return (
+    <span key={i}>
+      {isHighlighted ? (
+        <span className="theme-accent">{word}</span>
+      ) : (
+        word
+      )}
+      {i < nameParts.length - 1 && " "}
+    </span>
+  );
+})}
             </h2>
 
             {/* Rotating title */}

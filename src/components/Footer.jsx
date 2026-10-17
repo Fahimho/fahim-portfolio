@@ -1,7 +1,9 @@
 import { Github, Linkedin, Facebook, Mail } from "lucide-react";
-import { personal, socials, footer } from "../data/content";
-
+import { useContent } from "../context/ContentContext";
 export default function Footer() {
+  const { content } = useContent();
+  const { personal, socials, footer } = content;
+
   return (
     <footer className="mt-16 pt-8 pb-6 text-center">
       <div className="flex justify-center gap-3 mb-4">

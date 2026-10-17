@@ -1,7 +1,8 @@
 import { Folder, ExternalLink, Github, Play } from "lucide-react";
-import { projects } from "../data/content";
-
+import { useContent } from "../context/ContentContext";
 export default function Projects() {
+  const { content } = useContent();
+  const projects = content.projects || [];
   return (
     <div className="space-y-10">
       {/* ============ HEADER ============ */}

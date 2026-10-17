@@ -1,11 +1,24 @@
-import { Wrench, Cpu, Bot } from "lucide-react";
-import { skills } from "../data/content";
+import { Wrench, Cpu, Bot, Code, Database, Cloud, Server, Terminal,
+  Smartphone, Monitor, Wifi, Bluetooth, Zap, Battery, Lightbulb,
+  CircuitBoard, HardDrive, Router, Radio, Settings, Cog,
+  GitBranch, Github, FileCode, Binary, Braces, Palette,
+  Brain, Network, Cable, Gauge, Rocket, Star, Award
+} from "lucide-react";
+import { useContent } from "../context/ContentContext";
 import { useTheme } from "../context/ThemeContext";
 
-const HIGHLIGHT_ICONS = { Cpu, Bot };
+const HIGHLIGHT_ICONS = {
+  Cpu, Bot, Wrench, Code, Database, Cloud, Server, Terminal,
+  Smartphone, Monitor, Wifi, Bluetooth, Zap, Battery, Lightbulb,
+  CircuitBoard, HardDrive, Router, Radio, Settings, Cog,
+  GitBranch, Github, FileCode, Binary, Braces, Palette,
+  Brain, Network, Cable, Gauge, Rocket, Star, Award
+};
 
 export default function Skills() {
   const { theme } = useTheme();
+  const { content } = useContent();
+  const skills = content.skills || { highlights: [], categories: [] };
 
   return (
     <div className="space-y-10">
@@ -95,9 +108,22 @@ export default function Skills() {
 
 function SkillRow({ skill, theme }) {
   const isDark = theme === "dark";
-
-  // Pick the right icon based on theme
-  const iconSrc = isDark && skill.iconDark ? skill.iconDark : skill.icon;
+  
+  // Decide which icon to show based on the toggle
+  // Auto-detect if the old `icon` field actually holds a URL
+  const isOldUrl = skill.icon && (skill.icon.startsWith("http") || skill.icon.startsWith("data:"));
+  
+  // Decide which icon to show based on the toggle (or old data)
+  const baseUrl = skill.iconUrl || (isOldUrl ? skill.icon : "");
+  const showUrl = (skill.useUrl && skill.iconUrl) || isOldUrl;
+  
+  // Theme-specific URL logic
+  let finalUrl = baseUrl;
+  if (isDark && skill.iconDark) {
+    finalUrl = skill.iconDark; // Use dark mode specific logo if provided
+  }
+  
+  const LucideIcon = HIGHLIGHT_ICONS[skill.icon] || Wrench;
 
   return (
     <div className="space-y-2">
@@ -106,17 +132,15 @@ function SkillRow({ skill, theme }) {
           className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
           style={{ backgroundColor: "var(--bg-card)" }}
         >
-          {iconSrc ? (
+          {showUrl ? (
             <img
-              src={iconSrc}
+              src={finalUrl}
               alt={skill.name}
               className="w-6 h-6 object-contain"
-              onError={(e) => {
-                e.target.style.display = "none";
-              }}
+              onError={(e) => { e.target.style.display = "none"; }}
             />
           ) : (
-            <Wrench size={18} style={{ color: "var(--accent)" }} />
+            <LucideIcon size={18} style={{ color: "var(--accent)" }} />
           )}
         </div>
         <span className="font-semibold theme-heading text-sm flex-1">
@@ -127,6 +151,7 @@ function SkillRow({ skill, theme }) {
         </span>
       </div>
 
+      {/* Progress bar */}
       <div
         className="h-1.5 rounded-full overflow-hidden"
         style={{ backgroundColor: "var(--border)" }}
@@ -140,6 +165,7 @@ function SkillRow({ skill, theme }) {
         />
       </div>
 
+      {/* Description */}
       {skill.description && (
         <p className="text-xs theme-muted leading-relaxed">
           {skill.description}

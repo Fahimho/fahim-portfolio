@@ -1,7 +1,9 @@
 import { MapPin, Mail, Github, Linkedin, User } from "lucide-react";
-import { personal, socials, about } from "../data/content";
+import { useContent } from "../context/ContentContext";
 
 export default function HomeSection() {
+  const { content } = useContent();
+  const { personal, socials, about } = content;
   const nameParts = personal.name.split(" ");
 
   return (
@@ -18,15 +20,35 @@ export default function HomeSection() {
         />
 
         <div className="text-center space-y-4 pt-4">
-          <p className="theme-heading text-lg font-medium flex items-center justify-center gap-2">
-            <span>👋</span>
+          {/* Greeting with icon + size */}
+          <p
+            className={`theme-heading font-medium flex items-center justify-center gap-2 ${
+              about.greetingSize === "small"
+                ? "text-sm"
+                : about.greetingSize === "large"
+                ? "text-2xl"
+                : "text-lg"
+            }`}
+          >
+            {about.greetingIcon && <span>{about.greetingIcon}</span>}
             <span>{about.greeting}</span>
           </p>
 
-     <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">
-  <span className="theme-heading">{about.headline}</span>{" "}
-  <span className="theme-accent">{personal.name}!</span>
-</h1>
+          {/* Headline + Name with size */}
+          <h1
+            className={`font-extrabold leading-tight ${
+              about.headlineSize === "small"
+                ? "text-2xl md:text-3xl"
+                : about.headlineSize === "medium"
+                ? "text-3xl md:text-4xl"
+                : about.headlineSize === "large"
+                ? "text-5xl md:text-6xl"
+                : "text-4xl md:text-5xl"
+            }`}
+          >
+            <span className="theme-heading">{about.headline}</span>{" "}
+            <span className="theme-accent">{personal.name}!</span>
+          </h1>
 
           {/* Contact row */}
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm theme-body pt-2">
@@ -61,21 +83,25 @@ export default function HomeSection() {
 
         <div className="grid md:grid-cols-[280px_1fr] gap-8 items-start">
           {/* Photo placeholder */}
-          <div className="theme-card theme-shadow rounded-2xl p-4 aspect-square
-                          flex items-center justify-center overflow-hidden">
-            {about.photo ? (
-              <img
-                src={about.photo}
-                alt="About"
-                className="w-full h-full object-cover rounded-xl"
-              />
-            ) : (
-              <div className="w-full h-full rounded-xl theme-bg-accent-soft
-                              flex items-center justify-center">
-                <User size={64} className="theme-accent" />
-              </div>
-            )}
-          </div>
+          <div
+  className="aspect-square rounded-2xl overflow-hidden theme-shadow"
+  style={{
+    border: "2px solid var(--border)",
+  }}
+>
+  {about.photo ? (
+    <img
+      src={about.photo}
+      alt="About"
+      className="w-full h-full object-cover object-top"
+    />
+  ) : (
+    <div className="w-full h-full theme-bg-accent-soft
+                    flex items-center justify-center">
+      <User size={64} className="theme-accent" />
+    </div>
+  )}
+</div>
 
           {/* Bio paragraphs */}
           <div className="space-y-4 theme-body leading-relaxed">
