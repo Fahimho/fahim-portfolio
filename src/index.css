@@ -69,14 +69,61 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+/* ============================================================
+   SCROLLBARS
+   ============================================================ */
 
-::selection {
-  background: var(--accent);
-  color: var(--text-on-accent);
+/* 1. MAIN PAGE SCROLLBAR */
+body {
+  overflow-x: hidden;
 }
+
+::-webkit-scrollbar {
+  width: 3px; /* Main page width */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 4px;
+}
+
+/* 2. SIDEBAR SCROLLBAR */
+.sidebar-nav {
+  /* Ensure it scrolls */
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  
+  /* Firefox fallback */
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) transparent;
+}
+
+/* Chrome/Safari/Edge - Make it thinner than the main page */
+.sidebar-nav::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Make the track invisible */
+.sidebar-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* The thin vertical line */
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background: var(--accent); /* Shows the pink line */
+  border-radius: 2px;
+}
+
+/* 3. HIDE HORIZONTAL SCROLLBARS COMPLETELY */
+::-webkit-scrollbar:horizontal {
+  display: none;
+  height: 0;
+}
+
 
 /* ============================================================
    UTILITY CLASSES
@@ -126,4 +173,9 @@ aside, main {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+/* Specific scrollbar for the sidebar navigation */
+.sidebar-scroll {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
 }

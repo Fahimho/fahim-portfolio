@@ -11,8 +11,8 @@ export default function Certifications() {
         <div
           className="absolute top-6 left-6 w-16 h-16 pointer-events-none"
           style={{
-            borderTop: "2px dashed var(--accent)",
-            borderLeft: "2px dashed var(--accent)",
+            borderTop: "3px dashed var(--accent)",
+            borderLeft: "3px dashed var(--accent)",
           }}
         />
 

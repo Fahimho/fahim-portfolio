@@ -15,6 +15,7 @@ import EducationEditor from "./admin/editors/EducationEditor";
 import ExperienceEditor from "./admin/editors/ExperienceEditor";
 import SkillsEditor from "./admin/editors/SkillsEditor";
 import ProjectsEditor from "./admin/editors/ProjectsEditor";
+import CertificationsEditor from "./admin/editors/CertificationsEditor";
 
 function RequireAuth({ children }) {
   const { user, loading } = useAuth();
@@ -136,6 +137,7 @@ export default function App() {
                 <Route path="experience" element={<ExperienceEditor />} />
                 <Route path="skills" element={<SkillsEditor />} />
                 <Route path="projects" element={<ProjectsEditor />} />
+                <Route path="certifications" element={<CertificationsEditor />} />
                 <Route path="*" element={<div className="p-10 text-center theme-heading">Select a section</div>} />
               </Routes>
             </AdminLayout>
